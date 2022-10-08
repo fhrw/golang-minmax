@@ -2,15 +2,64 @@ package golangMinMax
 
 func isTerminal(state [][]int) (bool, int) {
 
+	// check rows
 	for _, r := range state {
-		full := full(r)
+		isFull := full(r)
 		sameCheck, val := allSame(r)
-		if full && sameCheck {
+		if isFull && sameCheck {
 			return true, val
 		}
 	}
 
-	return false, -1
+	// check cols
+	for i := range state {
+		col := getCol(state, i)
+		isFull := full(col)
+		sameCheck, val := allSame(col)
+		if isFull && sameCheck {
+			return true, val
+		}
+	}
+
+	//check diags
+	diags := [][]int{getDiag(state, true), getDiag(state, false)}
+	for _, d := range diags {
+		isFull := full(d)
+		sameCheck, val := allSame(d)
+		if isFull && sameCheck {
+			return true, val
+		}
+	}
+
+	// check for draw
+	if len(availSquares(state)) == 0 {
+		return true, 0
+	}
+
+	return false, 0
+
+}
+
+func getDiag(state [][]int, direction bool) []int {
+
+	var idx int
+	s := []int{}
+
+	if direction {
+		idx = 0
+		for _, r := range state {
+			s = append(s, r[idx])
+			idx++
+		}
+	} else {
+		idx = len(state)
+		for _, r := range state {
+			s = append(s, r[idx])
+			idx--
+		}
+	}
+
+	return s
 }
 
 func allSame(s []int) (bool, int) {
