@@ -1,31 +1,40 @@
 package golangMinMax
 
-func isTerminal(state [][]int) bool {
-	// if any row has three of the same
-	for _, v := range state {
-		if sum(v) == 3 || sum(v) == 6 {
-			return true
+func isTerminal(state [][]int) (bool, int) {
+
+	for _, r := range state {
+		full := full(r)
+		sameCheck, val := allSame(r)
+		if full && sameCheck {
+			return true, val
 		}
 	}
-	// if any col has three
-	for i := range state {
-		col := getCol(state, i)
-		if sum(col) == 3 || sum(col) == 6 {
-			return true
+
+	return false, -1
+}
+
+func allSame(s []int) (bool, int) {
+	first := s[0]
+	rest := s[1:]
+
+	for i := range rest {
+		if rest[i] != first {
+			return false, -1
 		}
 	}
-	// if either diag has three
-	diagOne := []int{state[0][0], state[1][1], state[2][2]}
-	diagTwo := []int{state[0][2], state[1][1], state[2][0]}
-	if sum(diagOne) == 3 || sum(diagTwo) == 3 || sum(diagOne) == 6 || sum(diagTwo) == 6 {
-		return true
+
+	return true, first
+}
+
+func full(s []int) bool {
+
+	for _, v := range s {
+		if v == 0 {
+			return false
+		}
 	}
-	// draw
-	if len(availSquares(state)) == 0 {
-		return true
-	}
-	// not terminal
-	return false
+
+	return true
 }
 
 func sum(s []int) int {
