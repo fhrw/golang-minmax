@@ -37,3 +37,27 @@ func MiniMax(state [][]int, depth int, maxPlayer bool) int {
 		return minEval
 	}
 }
+
+func GetBestMove(state [][]int, depth int) []int {
+
+	avail := availSquares(state)
+	scores := []int{}
+
+	for _, move := range avail {
+		board := copyBoard(state)
+		board[move[0]][move[1]] = 1
+		res := MiniMax(board, depth, false)
+		scores = append(scores, res)
+	}
+
+	min := -1
+	var bestMove []int
+	for i, v := range scores {
+		if v > min {
+			min = v
+			bestMove = avail[i]
+		}
+	}
+
+	return bestMove
+}
