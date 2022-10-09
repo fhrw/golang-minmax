@@ -52,7 +52,7 @@ func getDiag(state [][]int, direction bool) []int {
 			idx++
 		}
 	} else {
-		idx = len(state)
+		idx = len(state) - 1
 		for _, r := range state {
 			s = append(s, r[idx])
 			idx--
