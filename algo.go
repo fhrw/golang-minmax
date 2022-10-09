@@ -1,6 +1,6 @@
 package golangMinMax
 
-func miniMax(state [][]int, depth int, maxPlayer bool) int {
+func MiniMax(state [][]int, depth int, maxPlayer bool) int {
 
 	avail := availSquares(state)
 
@@ -14,7 +14,7 @@ func miniMax(state [][]int, depth int, maxPlayer bool) int {
 		for _, spot := range avail {
 			child := copyBoard(state)
 			child[spot[0]][spot[1]] = 1
-			eval := miniMax(child, depth-1, false)
+			eval := MiniMax(child, depth-1, false)
 			maxEval = max(maxEval, eval)
 		}
 		return maxEval
@@ -23,7 +23,7 @@ func miniMax(state [][]int, depth int, maxPlayer bool) int {
 		for _, spot := range avail {
 			child := copyBoard(state)
 			child[spot[0]][spot[1]] = 2
-			eval := miniMax(child, depth-1, true)
+			eval := MiniMax(child, depth-1, true)
 			minEval = min(minEval, eval)
 		}
 		return minEval
