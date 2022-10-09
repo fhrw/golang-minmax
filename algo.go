@@ -6,7 +6,15 @@ func MiniMax(state [][]int, depth int, maxPlayer bool) int {
 
 	terminalCheck, val := isTerminal(state)
 	if depth == 0 || terminalCheck {
-		return val
+		var score int
+		if val == 1 {
+			score = 1
+		} else if val == 2 {
+			score = -1
+		} else {
+			score = 0
+		}
+		return score
 	}
 
 	if maxPlayer {

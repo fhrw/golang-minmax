@@ -116,15 +116,15 @@ func availSquares(s [][]int) [][]int {
 }
 
 func copyBoard(s [][]int) [][]int {
-	new := make([][]int, len(s))
-	for i := range s {
+	copy := [][]int{}
+	for _, r := range s {
 		row := []int{}
-		for j := range s[i] {
-			row = append(row, s[i][j])
+		for _, v := range r {
+			row = append(row, v)
 		}
-		new = append(new, row)
+		copy = append(copy, row)
 	}
-	return new
+	return copy
 }
 
 func max(a int, b int) int {
