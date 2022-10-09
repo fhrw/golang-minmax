@@ -127,11 +127,17 @@ func copyBoard(s [][]int) [][]int {
 	return new
 }
 
-func max(s [][]int, maxxer int)
+func max(a int, b int) int {
+	if a > b {
+		return a
+	}
 
-func miniMax(s [][]int, maxPlayer int, maxxing bool) []int {
-	maxMove := []int{}
-	avail := availSquares(s)
+	return b
+}
 
-	return maxMove
+func min(a int, b int) int {
+	if a < b {
+		return a
+	}
+	return b
 }
